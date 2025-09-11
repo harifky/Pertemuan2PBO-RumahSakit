@@ -1,6 +1,7 @@
 package id.ac.polban.rifkyha.service;
 
 import id.ac.polban.rifkyha.model.Pasien;
+import id.ac.polban.rifkyha.model.PasienVIP;
 
 public class RumahSakit {
     private Pasien[] daftarPasien;
@@ -31,7 +32,7 @@ public class RumahSakit {
         } else {
             for (int i = 0; i < jumlahPasien; i++) {
                 System.out.println("[" + (i+1) + "]");
-                daftarPasien[i].tampilkanInfo();
+                daftarPasien[i].tampilkanInfo();  // Polymorphism: call overridden method
                 System.out.println("-----------------");
             }
         }
@@ -46,6 +47,17 @@ public class RumahSakit {
             System.out.println("Data pasien diperbarui!");
         } else {
             System.out.println("Nomor pasien tidak valid!");
+        }
+    }
+
+    // Update VIP khusus (tambahan untuk handle PasienVIP)
+    public void updatePasienVIP(int index, String nomorKamarVIP) {
+        if (index >= 0 && index < jumlahPasien && daftarPasien[index] instanceof PasienVIP) {
+            PasienVIP p = (PasienVIP) daftarPasien[index];
+            if (!nomorKamarVIP.isEmpty()) p.setNomorKamarVIP(nomorKamarVIP);
+            System.out.println("Data VIP diperbarui!");
+        } else {
+            System.out.println("Nomor pasien tidak valid atau bukan VIP!");
         }
     }
 

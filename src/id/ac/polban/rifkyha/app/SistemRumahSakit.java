@@ -1,6 +1,7 @@
 package id.ac.polban.rifkyha.app;
 
 import id.ac.polban.rifkyha.model.Pasien;
+import id.ac.polban.rifkyha.model.PasienVIP;
 import id.ac.polban.rifkyha.service.RumahSakit;
 
 import java.util.Scanner;
@@ -13,10 +14,12 @@ public class SistemRumahSakit {
 
         while (jalan) {
             System.out.println("\n=== MENU RUMAH SAKIT ===");
-            System.out.println("1. Tambah Pasien");
-            System.out.println("2. Lihat Daftar Pasien");
-            System.out.println("3. Update Data Pasien");
-            System.out.println("4. Lihat Total Pasien (Static)");
+            System.out.println("1. Tambah Pasien Biasa");
+            System.out.println("2. Tambah Pasien VIP");
+            System.out.println("3. Lihat Daftar Pasien");
+            System.out.println("4. Update Data Pasien");
+            System.out.println("5. Update Data Pasien VIP");
+            System.out.println("6. Lihat Total Pasien (Static)");
             System.out.println("0. Keluar");
             System.out.print("Pilih: ");
 
@@ -36,17 +39,28 @@ public class SistemRumahSakit {
                     break;
 
                 case 2:
-                    rs.lihatPasien();
+                    System.out.print("Nama: ");
+                    String namaVIP = sc.nextLine();
+                    System.out.print("Umur: ");
+                    int umurVIP = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Penyakit: ");
+                    String penyakitVIP = sc.nextLine();
+                    System.out.print("Nomor Kamar VIP: ");
+                    String nomorKamar = sc.nextLine();
+                    rs.tambahPasien(new PasienVIP(namaVIP, umurVIP, penyakitVIP, nomorKamar));
                     break;
 
                 case 3:
                     rs.lihatPasien();
-                    if (rs.getJumlahPasien() == 0) break;
+                    break;
 
+                case 4:
+                    rs.lihatPasien();
+                    if (rs.getJumlahPasien() == 0) break;
                     System.out.print("Pilih nomor pasien: ");
                     int idx = sc.nextInt() - 1;
                     sc.nextLine();
-
                     System.out.print("Nama baru: ");
                     String nBaru = sc.nextLine();
                     System.out.print("Umur baru: ");
@@ -57,7 +71,18 @@ public class SistemRumahSakit {
                     rs.updatePasien(idx, nBaru, uBaru, pBaru);
                     break;
 
-                case 4:
+                case 5:
+                    rs.lihatPasien();
+                    if (rs.getJumlahPasien() == 0) break;
+                    System.out.print("Pilih nomor pasien VIP: ");
+                    int idxVIP = sc.nextInt() - 1;
+                    sc.nextLine();
+                    System.out.print("Nomor Kamar VIP baru: ");
+                    String kBaru = sc.nextLine();
+                    rs.updatePasienVIP(idxVIP, kBaru);
+                    break;
+
+                case 6:
                     System.out.println("Total pasien (semua RS): " + RumahSakit.getTotalPasien());
                     break;
 
